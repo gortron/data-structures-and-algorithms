@@ -16,12 +16,16 @@ describe("Binary Tree", function() {
     node = new Node(1);
   });
 
-  it("makes node elements", () => {
+  it("makes an instance of a Tree", () => {
+    expect(tree).toEqual(expect.any(Tree));
+  });
+
+  it("makes an instance of a Node", () => {
     expect(node).toEqual(expect.any(Node));
     expect(node.value).toEqual(1);
   });
 
-  it("creates a binary tree from an array", () => {
+  it("can add() elements of an array to the tree", () => {
     expect(objs.value).toEqual(3);
 
     expect(objs.left.value).toEqual(1);
@@ -52,7 +56,7 @@ describe("Binary Tree", function() {
     expect(objs.right.right.left.left.left).toBeNull();
   });
 
-  it("can perform a depth-first search", () => {
+  it("can perform a depth-first search with maxDepth()", () => {
     expect(tree.maxDepth()).toEqual(5);
   });
 });
