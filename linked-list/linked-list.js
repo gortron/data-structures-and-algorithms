@@ -79,3 +79,6 @@ class Node {
     this.next = null;
   }
 }
+
+// module.exports = { LinkedList, Node };
+export { LinkedList, Node };
