@@ -1,22 +1,33 @@
 import { LinkedList, Node } from "./linked-list";
-jest.mock("./linked-list"); // LinkedList is now a mock constructor
 
 // Jest tests
 describe("LinkedList", function() {
+  // Functions to create quick array of unique characters for tests
   const range = length =>
     Array.apply(null, { length: length }).map(Number.call, Number);
   const abcRange = length =>
     range(length).map(num => String.fromCharCode(97 + num));
-  let list;
+  let list = new LinkedList();
 
   beforeEach(() => {
-    // list = new LinkedList();
-    LinkedList.mockClear();
+    list = new LinkedList();
   });
 
   it("constructs a linked list", () => {
-    const list = new LinkedList();
-    expect(LinkedList).toHaveBeenCalledTimes(1);
+    expect(list).toEqual(expect.any(LinkedList));
+  });
+
+  it("pushes new nodes to end of list", () => {
+    abcRange(26).map(character => list.push(character));
+    expect(list.length).toEqual(26);
+  });
+
+  it("pops nodes from the end of the list", () => {
+    abcRange(13).map(character => list.push(character));
+    expect(list.length).toEqual(13);
+    range(10).map(() => list.pop());
+    expect(list.length).toEqual(3);
+    expect(list.pop()).toEqual("c");
   });
 });
 
