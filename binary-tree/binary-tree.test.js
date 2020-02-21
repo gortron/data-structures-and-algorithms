@@ -6,12 +6,19 @@ describe("Binary Tree", function() {
   let nums = [];
   let tree = new Tree();
   let objs = tree.toObject();
+  let node = new Node();
 
   beforeEach(() => {
     nums = [3, 7, 4, 6, 5, 1, 10, 2, 9, 8];
     tree = new Tree();
     nums.map(num => tree.add(num));
     objs = tree.toObject();
+    node = new Node(1);
+  });
+
+  it("makes node elements", () => {
+    expect(node).toEqual(expect.any(Node));
+    expect(node.value).toEqual(1);
   });
 
   it("creates a binary tree from an array", () => {
@@ -45,5 +52,7 @@ describe("Binary Tree", function() {
     expect(objs.right.right.left.left.left).toBeNull();
   });
 
-  // it("can perform a depth-first search", () => {});
+  it("can perform a depth-first search", () => {
+    expect(tree.maxDepth()).toEqual(5);
+  });
 });

@@ -41,16 +41,16 @@ class Tree {
   maxDepth() {
     if (!this.root) return 0;
 
-    let leftDepth = visit(this.root.left, 1);
-    let rightDepth = visit(this.root.right, 1);
+    let leftDepth = this.visit(this.root.left, 1);
+    let rightDepth = this.visit(this.root.right, 1);
     return Math.max(leftDepth, rightDepth);
   }
 
   visit(node, depth) {
     if (!node) return depth;
 
-    let left = visit(node.left, depth + 1);
-    let right = visit(node.right, depth + 1);
+    let left = this.visit(node.left, depth + 1);
+    let right = this.visit(node.right, depth + 1);
     return Math.max(left, right);
   }
 }
