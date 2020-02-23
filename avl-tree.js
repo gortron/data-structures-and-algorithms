@@ -11,13 +11,8 @@ class Tree {
     }
   }
 
-  toJSON() {
-    return JSON.stringify(this.root.serialize(), null, 4);
-  }
-
   toObject() {
-    return this.root.serialize();
-    // return this.root;
+    return this.root;
   }
 }
 
@@ -116,17 +111,8 @@ class Node {
     ) {
       this.height = this.left.height + 1;
     } else {
-      //if (!this.left || this.right.height > this.left.height)
       this.height = this.right.height + 1;
     }
-  }
-
-  serialize() {
-    const ans = { value: this.value };
-    ans.left = this.left === null ? null : this.left.serialize();
-    ans.right = this.right === null ? null : this.right.serialize();
-    ans.height = this.height;
-    return ans;
   }
 }
 

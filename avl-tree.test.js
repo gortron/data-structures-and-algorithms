@@ -23,7 +23,7 @@ describe("AVL Tree", function() {
     expect(node.value).toEqual(1);
   });
 
-  it("correctly balances itself", () => {
+  it("correctly adds() nodes and balances itself", () => {
     expect(objs.value).toEqual(4);
 
     expect(objs.left.value).toEqual(2);
