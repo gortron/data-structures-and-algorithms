@@ -17,26 +17,39 @@ describe("LinkedList", function() {
     expect(list).toEqual(expect.any(LinkedList));
   });
 
-  it("pushes new nodes to end of list", () => {
-    abcRange(26).map(character => list.push(character));
+  it("inserts new nodes to end of list", () => {
+    abcRange(26).map(character => list.insert(character));
     expect(list.length).toEqual(26);
+    expect(list.tail.value).toEqual("z");
+  });
+
+  it("removes nodes from any position", () => {
+    abcRange(13).map(character => list.insert(character));
+    list.remove(list.head);
+    expect(list.head.value).toEqual("b");
+    list.remove(list.tail);
+    expect(list.tail.value).toEqual("l");
+    // a b c d   e f g h   i j k l   m
   });
 
   it("pops nodes from the end of the list", () => {
-    abcRange(13).map(character => list.push(character));
-    expect(list.length).toEqual(13);
-    range(10).map(() => list.pop());
-    expect(list.length).toEqual(3);
-    expect(list.pop()).toEqual("c");
+    abcRange(13).map(character => list.insert(character));
+    // abc...lm
+    list.pop();
+    expect(list.length).toEqual(12);
+    expect(list.tail.value).toEqual("l");
+    list.pop();
+    expect(list.length).toEqual(11);
+    expect(list.tail.value).toEqual("k");
   });
 
   it("gets node from a given index", () => {
-    list.push("first");
+    list.insert("first");
     expect(list.get(0)).toEqual("first");
-    list.push("second");
+    list.insert("second");
     expect(list.get(1)).toEqual("second");
     expect(list.get(0)).toEqual("first");
-    abcRange(26).map(character => list.push(character));
+    abcRange(26).map(character => list.insert(character));
     expect(list.get(27)).toEqual("z");
     expect(list.get(0)).toEqual("first");
     expect(list.get(9)).toEqual("h");
@@ -44,14 +57,19 @@ describe("LinkedList", function() {
     expect(list.get(list.length - 1)).toEqual("y");
   });
 
-  it("deletes node at a given index", () => {
-    abcRange(26).map(character => list.push(character));
-    list.delete(13);
-    expect(list.length).toEqual(25);
-    expect(list.get(12)).toEqual("m");
-    expect(list.get(13)).toEqual("o");
-    list.delete(0);
-    expect(list.length).toEqual(24);
-    expect(list.get(0)).toEqual("b");
+  it("clears all nodes", () => {
+    list.clear();
+    expect(list.length).toEqual(0);
+  });
+
+  it("concatenates two lists", () => {
+    abcRange(13).map(character => list.insert(character));
+    let list2 = new LinkedList();
+    list2.insert("first");
+    list2.insert("second");
+    expect(list.length).toEqual(13);
+    list.cat(list2);
+    expect(list.length).toEqual(15);
+    expect(list.tail.value).toEqual("second");
   });
 });
