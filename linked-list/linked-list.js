@@ -1,3 +1,5 @@
+// My implementation of LinkedList. Note that this is not a 'lean' Linked List. I've deliberately duplicated functionality to practice different implementation approaches.
+
 class LinkedList {
   constructor() {
     this.head = this.tail = null;
@@ -26,46 +28,56 @@ class LinkedList {
       } else {
         this.head = this.head.next;
       }
+      this.length--;
     } else {
       // Loop through the list, looking for the node to remove
-      let temp = self.head;
-      while (temp && temp.next !== node) {
+      let temp = this.head;
+      for (let i = 0; i < this.length - 1; i++) {
+        // Find the node to remove, and handle the case where it's the tail
+        if (temp.next === node) {
+          if (temp.next === this.tail) {
+            this.tail = temp;
+            temp.next = null;
+          } else {
+            temp.next = temp.next.next;
+          }
+          this.length--;
+          return node;
+        }
         temp = temp.next;
       }
-      if (temp) temp.next = node.next;
     }
-    this.length--;
-    return node.value;
   }
 
-  // delete(index) {
-  //   if (index === 0) {
-  //     const head = this.head;
-  //     if (head) {
-  //       this.head = head.next;
-  //     } else {
-  //       this.head = this.tail = null;
-  //     }
-  //     this.length--;
-  //     return head.value;
-  //   }
+  delete(index) {
+    if (index === 0) {
+      const head = this.head;
+      if (head) {
+        this.head = head.next;
+      } else {
+        this.head = this.tail = null;
+      }
+      this.length--;
+      return head.value;
+    }
 
-  //   const node = this._find(index - 1, this._testIndex);
-  //   const excise = node.next;
-  //   if (!excise) return null;
-  //   node.next = excise.next;
+    const node = this._find(index - 1, this._testIndex);
+    const excise = node.next;
+    if (!excise) return null;
+    node.next = excise.next;
 
-  //   if (node.next && !node.next.next) {
-  //     this.tail = node.next;
-  //   }
-  //   this.length--;
-  //   return excise.value;
-  // }
+    if (node.next && !node.next.next) {
+      this.tail = node.next;
+    }
+    this.length--;
+    return excise.value;
+  }
 
   cat(list) {
     if (!list) return null;
 
     this.tail.next = list.head;
+    this.tail = list.tail;
     this.length += list.length;
   }
 
@@ -77,6 +89,7 @@ class LinkedList {
 
   pop() {
     return this.remove(this.tail);
+    // return this.delete(this.length - 1);
   }
 
   get(index) {

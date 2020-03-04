@@ -23,12 +23,24 @@ describe("LinkedList", function() {
     expect(list.tail.value).toEqual("z");
   });
 
+  it("removes nodes from any position", () => {
+    abcRange(13).map(character => list.insert(character));
+    list.remove(list.head);
+    expect(list.head.value).toEqual("b");
+    list.remove(list.tail);
+    expect(list.tail.value).toEqual("l");
+    // a b c d   e f g h   i j k l   m
+  });
+
   it("pops nodes from the end of the list", () => {
     abcRange(13).map(character => list.insert(character));
-    expect(list.length).toEqual(13);
-    expect(list.pop()).toEqual("m");
+    // abc...lm
+    list.pop();
     expect(list.length).toEqual(12);
-    expect(list.pop()).toEqual("l");
+    expect(list.tail.value).toEqual("l");
+    list.pop();
+    expect(list.length).toEqual(11);
+    expect(list.tail.value).toEqual("k");
   });
 
   it("gets node from a given index", () => {
@@ -45,14 +57,19 @@ describe("LinkedList", function() {
     expect(list.get(list.length - 1)).toEqual("y");
   });
 
-  it("removes a given node", () => {
-    abcRange(26).map(character => list.insert(character));
-    list.remove(list.head);
-    expect(list.length).toEqual(25);
-    expect(list.get(12)).toEqual("n");
-    expect(list.get(13)).toEqual("o");
-    list.remove(list.head);
-    expect(list.length).toEqual(24);
-    expect(list.get(0)).toEqual("b");
+  it("clears all nodes", () => {
+    list.clear();
+    expect(list.length).toEqual(0);
+  });
+
+  it("concatenates two lists", () => {
+    abcRange(13).map(character => list.insert(character));
+    let list2 = new LinkedList();
+    list2.insert("first");
+    list2.insert("second");
+    expect(list.length).toEqual(13);
+    list.cat(list2);
+    expect(list.length).toEqual(15);
+    expect(list.tail.value).toEqual("second");
   });
 });
