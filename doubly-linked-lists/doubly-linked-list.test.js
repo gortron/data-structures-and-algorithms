@@ -54,4 +54,11 @@ describe("DoublyLinkedList", function() {
     list.insert("c");
     expect(list.findLast("b")).toEqual(list.tail.previous);
   });
+
+  it("reverses list", () => {
+    buildList(list);
+    list.reverse();
+    expect(list.head.value).toEqual("c");
+    expect(list.tail.value).toEqual("a");
+  });
 });
