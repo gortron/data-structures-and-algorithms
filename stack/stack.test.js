@@ -38,4 +38,20 @@ describe("Stack", () => {
     expect(stack.tail.value).toEqual("a");
     expect(stack.length).toEqual(2);
   });
+
+  it("should peek at the top item", () => {
+    addTo(stack);
+    expect(stack.peek().value).toEqual("c");
+  });
+
+  it("should clear the stack", () => {
+    addTo(stack);
+    expect(stack.length).toEqual(3);
+    expect(stack.head.value).toEqual("c");
+    expect(stack.tail.value).toEqual("a");
+    stack.clear();
+    expect(stack.length).toEqual(0);
+    expect(stack.head).toEqual(null);
+    expect(stack.tail).toEqual(null);
+  });
 });

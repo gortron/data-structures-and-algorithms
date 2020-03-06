@@ -24,6 +24,16 @@ class Stack {
     this.length--;
     return top;
   }
+
+  peek() {
+    return this.head;
+  }
+
+  clear() {
+    while (this.length) {
+      this.pop();
+    }
+  }
 }
 
 class Node {
