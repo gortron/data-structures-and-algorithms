@@ -89,7 +89,6 @@ class LinkedList {
 
   pop() {
     return this.remove(this.tail);
-    // return this.delete(this.length - 1);
   }
 
   get(index) {

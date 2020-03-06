@@ -29,7 +29,6 @@ describe("LinkedList", function() {
     expect(list.head.value).toEqual("b");
     list.remove(list.tail);
     expect(list.tail.value).toEqual("l");
-    // a b c d   e f g h   i j k l   m
   });
 
   it("pops nodes from the end of the list", () => {
