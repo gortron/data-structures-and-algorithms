@@ -21,6 +21,34 @@ class Graph {
     vertex1.edges.add(vertex2.key);
     vertex2.edges.add(vertex1.key);
   }
+
+  removeVertex(key) {
+    let found = false;
+    let target = null;
+    let previous = null;
+    let current = this.vertices.head;
+    let vertex = null;
+
+    for (let i = 0; i < this.vertices.length; i++) {
+      vertex = current.value;
+      if (vertex.edges.has(key)) return null;
+
+      if (vertex.key === key) {
+        found = true;
+        target = vertex;
+        break;
+      }
+
+      previous = current;
+      current = current.next;
+    }
+
+    //
+    if (!found) return null;
+    if (target.edges.size > 0) return null;
+    if (!previous) return this.vertices.remove(current);
+    if (found) return this.vertices.remove(current);
+  }
 }
 
 class Vertex {
@@ -81,6 +109,20 @@ class LinkedList {
       }
     }
   }
+
+  // removeNext(previousNode) {
+  //   if (this.length === 0) return null;
+  //   if (!previousNode) this.head = this.head.next;
+  //   else {
+  //     if (previousNode.next === previousNode) this.head = null;
+  //     else {
+  //       let old = previousNode.next;
+  //       previousNode.next = previousNode.next.next;
+  //       if (old === this.head) this.head = old.next;
+  //     }
+  //   }
+  //   this.length--;
+  // }
 
   cat(list) {
     if (!list) return null;
