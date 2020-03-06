@@ -34,26 +34,6 @@ describe("Graph", () => {
     expect(graph.findVertex("c")).toEqual(null);
   });
 
-  it("should add edges between given vertices", () => {
-    graph.insertVertex("a");
-    graph.insertVertex("b");
-    let vertex1 = graph.findVertex("a");
-    let vertex2 = graph.findVertex("b");
-    graph.insertEdge(vertex1.key, vertex2.key);
-    expect(vertex1.edges.has(vertex2.key)).toEqual(true);
-    expect(vertex2.edges.has(vertex1.key)).toEqual(true);
-  });
-
-  it("should add edges between given vertices", () => {
-    graph.insertVertex("a");
-    graph.insertVertex("b");
-    let vertex1 = graph.findVertex("a");
-    let vertex2 = graph.findVertex("b");
-    graph.insertEdge(vertex1.key, vertex2.key);
-    expect(vertex1.edges.has(vertex2.key)).toEqual(true);
-    expect(vertex2.edges.has(vertex1.key)).toEqual(true);
-  });
-
   it("should remove a given vertex if it has no edges", () => {
     graph.insertVertex("a");
     expect(graph.vertices.length).toEqual(1);
@@ -72,5 +52,38 @@ describe("Graph", () => {
     let vertex2 = graph.findVertex("b");
     graph.insertEdge(vertex1.key, vertex2.key);
     expect(graph.removeVertex("a")).toEqual(null);
+  });
+
+  it("should add edges between given vertices", () => {
+    graph.insertVertex("a");
+    graph.insertVertex("b");
+    let vertex1 = graph.findVertex("a");
+    let vertex2 = graph.findVertex("b");
+    graph.insertEdge(vertex1.key, vertex2.key);
+    expect(vertex1.edges.has(vertex2.key)).toEqual(true);
+    expect(vertex2.edges.has(vertex1.key)).toEqual(true);
+  });
+
+  it("should remove edges between given vertices", () => {
+    graph.insertVertex("a");
+    graph.insertVertex("b");
+    let vertex1 = graph.findVertex("a");
+    let vertex2 = graph.findVertex("b");
+    graph.insertEdge(vertex1.key, vertex2.key);
+    expect(vertex1.edges.has(vertex2.key)).toEqual(true);
+    expect(vertex2.edges.has(vertex1.key)).toEqual(true);
+    graph.removeEdge(vertex1.key, vertex2.key);
+    expect(vertex1.edges.has(vertex2.key)).toEqual(false);
+    expect(vertex2.edges.has(vertex1.key)).toEqual(false);
+  });
+
+  it("should know if vertices are adjacent", () => {
+    graph.insertVertex("a");
+    graph.insertVertex("b");
+    let vertex1 = graph.findVertex("a");
+    let vertex2 = graph.findVertex("b");
+    expect(graph.areAdjacent(vertex1.key, vertex2.key)).toEqual(false);
+    graph.insertEdge(vertex1.key, vertex2.key);
+    expect(graph.areAdjacent(vertex1.key, vertex2.key)).toEqual(true);
   });
 });

@@ -3,23 +3,14 @@ class Graph {
     this.vertices = new LinkedList();
   }
 
-  insertVertex(key) {
-    if (this.findVertex(key)) return null;
-    let vertex = new Vertex(key);
-    this.vertices.insert(vertex);
-  }
-
   findVertex(key) {
     return this.vertices._find(key);
   }
 
-  insertEdge(key1, key2) {
-    let vertex1 = this.findVertex(key1);
-    let vertex2 = this.findVertex(key2);
-    if (!vertex1 || !vertex2) return null;
-
-    vertex1.edges.add(vertex2.key);
-    vertex2.edges.add(vertex1.key);
+  insertVertex(key) {
+    if (this.findVertex(key)) return null;
+    let vertex = new Vertex(key);
+    this.vertices.insert(vertex);
   }
 
   removeVertex(key) {
@@ -43,11 +34,35 @@ class Graph {
       current = current.next;
     }
 
-    //
-    if (!found) return null;
+    // Need to handle cases where we don't find the vertex, where we find it but it's connected, and where we find and it is not connected
     if (target.edges.size > 0) return null;
-    if (!previous) return this.vertices.remove(current);
-    if (found) return this.vertices.remove(current);
+    if (!found) return null;
+    else return this.vertices.remove(current);
+  }
+
+  insertEdge(key1, key2) {
+    let vertex1 = this.findVertex(key1);
+    let vertex2 = this.findVertex(key2);
+    if (!vertex1 || !vertex2) return null;
+
+    vertex1.edges.add(vertex2.key);
+    vertex2.edges.add(vertex1.key);
+  }
+
+  removeEdge(key1, key2) {
+    let vertex1 = this.findVertex(key1);
+    let vertex2 = this.findVertex(key2);
+
+    if (!vertex1 || !vertex2) return null;
+    vertex1.edges.delete(vertex2.key);
+    vertex2.edges.delete(vertex1.key);
+  }
+
+  areAdjacent(key1, key2) {
+    let vertex1 = this.findVertex(key1);
+    let vertex2 = this.findVertex(key2);
+    if (vertex1.edges.has(key2) || vertex1.edges.has(key1)) return true;
+    else return false;
   }
 }
 
