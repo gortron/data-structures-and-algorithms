@@ -22,6 +22,16 @@ class Queue {
     this.length--;
     return first;
   }
+
+  peek() {
+    return this.head;
+  }
+
+  clear() {
+    while (this.length) {
+      this.dequeue();
+    }
+  }
 }
 
 class Node {

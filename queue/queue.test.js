@@ -36,4 +36,18 @@ describe("Queue", () => {
     expect(queue.dequeue().value).toEqual("a");
     expect(queue.length).toEqual(2);
   });
+
+  it("should peek at the first item", () => {
+    addTo(queue);
+    expect(queue.peek().value).toEqual("a");
+  });
+
+  it("should clear the queue", () => {
+    addTo(queue);
+    expect(queue.length).toEqual(3);
+    queue.clear();
+    expect(queue.length).toEqual(0);
+    expect(queue.head).toEqual(null);
+    expect(queue.tail).toEqual(null);
+  });
 });
