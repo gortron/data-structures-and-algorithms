@@ -56,7 +56,7 @@ describe("Binary Tree", function() {
     expect(objs.right.right.left.left.left).toBeNull();
   });
 
-  it("can perform a depth-first search with maxDepth()", () => {
+  it("can perform a breadth-first search with maxDepth()", () => {
     expect(tree.maxDepth()).toEqual(5);
   });
 });

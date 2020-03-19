@@ -38,6 +38,27 @@ class Tree {
     }
   }
 
+  // if target is closer to leaf, use DFS
+  traversePostorder() {
+    if (!this.root) return null;
+    const nodes = [];
+
+    nodes.push(postorderHelper(this.root.left));
+    nodes.push(postorderHelper(this.root.right));
+    nodes.push(this.root);
+    return nodes;
+  }
+
+  postorderHelper(node) {
+    if (!node) return null;
+    if (node !== null) {
+      postOrderHelper(node.left);
+      postOrderHelper(node.right);
+    }
+    return node;
+  }
+
+  // if target is closer to root, use BFS
   maxDepth() {
     if (!this.root) return 0;
 
